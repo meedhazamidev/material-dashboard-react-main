@@ -12,6 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+import { useSelector } from "react-redux";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
@@ -21,6 +22,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 function ComplexStatisticsCard({ title, logo, color }) {
+  const darkModeRedux = useSelector((state) => state.darkMode);
   return (
     <MDBox display="flex" justifyContent="space-between" pt={1}>
       <MDBox
@@ -54,7 +56,7 @@ function ComplexStatisticsCard({ title, logo, color }) {
           <MDTypography
             fontWeight="regular"
             sx={{
-              backgroundColor: "#63A4FA",
+              backgroundColor: darkModeRedux ? "#fff" : "#63A4FA",
               fontSize: "x-small",
               whiteSpace: "nowrap",
               width: "120px",
@@ -63,7 +65,7 @@ function ComplexStatisticsCard({ title, logo, color }) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              color: "#fff",
+              color: darkModeRedux ? "#63A4FA" : "#fff",
             }}
           >
             Voir les candidatures

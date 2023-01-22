@@ -48,6 +48,9 @@ import {
   setDarkMode,
 } from "context";
 
+import { useSelector, useDispatch } from "react-redux";
+import { darkModeAction } from "../../reducers";
+
 function Configurator() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -60,6 +63,9 @@ function Configurator() {
   } = controller;
   const [disabled, setDisabled] = useState(false);
   const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
+
+  const darkModeRedux = useSelector((state) => state.darkMode);
+  const dispatchAction = useDispatch();
 
   // Use the useEffect hook to change the button state for the sidenav type based on window size.
   useEffect(() => {
@@ -92,8 +98,13 @@ function Configurator() {
     setTransparentSidenav(dispatch, false);
   };
   const handleFixedNavbar = () => setFixedNavbar(dispatch, !fixedNavbar);
-  const handleDarkMode = () => setDarkMode(dispatch, !darkMode);
-
+  // darkMode
+  const handleDarkMode = () => {
+    // darkMode with context api
+    setDarkMode(dispatch, !darkMode);
+    // darkMode with redux
+    dispatchAction(darkModeAction(darkModeRedux));
+  };
   // sidenav type buttons styles
   const sidenavTypeButtonsStyles = ({
     functions: { pxToRem },
@@ -281,7 +292,6 @@ function Configurator() {
         <Divider />
         <MDBox display="flex" justifyContent="space-between" alignItems="center" lineHeight={1}>
           <MDTypography variant="h6">Light / Dark</MDTypography>
-
           <Switch checked={darkMode} onChange={handleDarkMode} />
         </MDBox>
         <Divider />
