@@ -16,58 +16,61 @@ Coded by www.creative-tim.com
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
-// @mui material components
-import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
-import Icon from "@mui/material/Icon";
-
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-function ComplexStatisticsCard({ color, title, count, percentage, icon }) {
+function ComplexStatisticsCard({ title, logo, color }) {
   return (
-    <Card>
-      <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
-        <MDBox
-          variant="gradient"
-          bgColor={color}
-          color={color === "light" ? "dark" : "white"}
-          coloredShadow={color}
-          borderRadius="xl"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          width="4rem"
-          height="4rem"
-          mt={-3}
-        >
-          <Icon fontSize="medium" color="inherit">
-            {icon}
-          </Icon>
-        </MDBox>
-        <MDBox textAlign="right" lineHeight={1.25}>
-          <MDTypography variant="button" fontWeight="light" color="text">
-            {title}
-          </MDTypography>
-          <MDTypography variant="h4">{count}</MDTypography>
-        </MDBox>
-      </MDBox>
-      <Divider />
-      <MDBox pb={2} px={2}>
-        <MDTypography component="p" variant="button" color="text" display="flex">
-          <MDTypography
-            component="span"
-            variant="button"
-            fontWeight="bold"
-            color={percentage.color}
-          >
-            {percentage.amount}
-          </MDTypography>
-          &nbsp;{percentage.label}
+    <MDBox display="flex" justifyContent="space-between" pt={1}>
+      <MDBox
+        component="img"
+        src={logo}
+        alt={title}
+        width="40px"
+        height="40px"
+        position="relative"
+        zIndex={1}
+      />
+      <MDBox
+        ml={2}
+        display="flex"
+        flexDirection="column"
+        justifyContent=" space-between"
+        width="100%"
+      >
+        <MDTypography variant="h6" color="dark" fontWeight="medium">
+          120
         </MDTypography>
+        <MDTypography
+          sx={{ fontSize: "small", width: "150px" }}
+          color={color}
+          fontWeight="regular"
+          textTransform="capitalize"
+        >
+          {title}
+        </MDTypography>
+        <MDBox py={3} width="100%">
+          <MDTypography
+            fontWeight="regular"
+            sx={{
+              backgroundColor: "#63A4FA",
+              fontSize: "x-small",
+              whiteSpace: "nowrap",
+              width: "120px",
+              height: "20px",
+              borderRadius: "5px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+            }}
+          >
+            Voir les candidatures
+          </MDTypography>
+        </MDBox>
       </MDBox>
-    </Card>
+    </MDBox>
   );
 }
 
@@ -94,7 +97,6 @@ ComplexStatisticsCard.propTypes = {
     "dark",
   ]),
   title: PropTypes.string.isRequired,
-  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   percentage: PropTypes.shape({
     color: PropTypes.oneOf([
       "primary",
@@ -109,7 +111,7 @@ ComplexStatisticsCard.propTypes = {
     amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     label: PropTypes.string,
   }),
-  icon: PropTypes.node.isRequired,
+  logo: PropTypes.node.isRequired,
 };
 
 export default ComplexStatisticsCard;

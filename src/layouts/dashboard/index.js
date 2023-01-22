@@ -15,9 +15,11 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
+// import Typography from "@mui/material/Typography";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -35,72 +37,48 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
+// Material Dashboard 2 React context
+import { useMaterialUIController } from "context";
+
+// Images
+import Candidatures from "assets/images/logos/candidats-logos/logo-candidatures.svg";
+
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [controller] = useMaterialUIController();
+  const { darkMode } = controller;
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
-                percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
-              />
-            </MDBox>
+        <Grid
+          sx={{
+            bgcolor: darkMode ? "dark" : "#FFFFFF",
+            borderRadius: "5px",
+          }}
+          container
+        >
+          <MDTypography
+            sx={{
+              padding: "20px 0 0 20px",
+            }}
+            fontWeight="regular"
+            color="dark"
+            variant="h6"
+          >
+            Candidats
+          </MDTypography>
+          <Grid container>
+            {["Candidatures", "Nouveaux profils", "Dossiers intéressants", "Dossiers favoris"].map(
+              (val, index) => (
+                <Grid keys={index} sx={{ padding: "10px 0 0 20px" }} item xs={12} md={6} lg={3}>
+                  <Grid item xs={12} md={6} lg={3}>
+                    <ComplexStatisticsCard color="dark" title={val} logo={Candidatures} />
+                  </Grid>
+                </Grid>
+              )
+            )}
           </Grid>
         </Grid>
         <MDBox mt={4.5}>
